@@ -1,10 +1,10 @@
 import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core';
-import RedisStore from 'connect-redis'
+import RedisStore from 'connect-redis';
 import * as session from 'express-session'
 import * as cookieParser from 'cookie-parser'
-import * as graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js'
+import * as graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 
 // Core NestJS module
 import { CoreModule } from './core/core.module'
@@ -14,6 +14,7 @@ import { RedisService } from './core/redis/redis.service'
 import { ms, type StringValue } from './shared/utils/ms.util'
 // Utility to safely convert string env vars to booleans
 import { parseBoolean } from './shared/utils/parse-boolean.util'
+
 
 async function bootstrap() {
   // Create the NestJS app instance

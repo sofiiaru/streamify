@@ -4,6 +4,8 @@ import { PrismaModule } from "./prisma/prisma.module";
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { getGraphQLConfig } from "./config/graphql.config";
+import { AccountModule } from 'src/modules/auth/account/account.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { getGraphQLConfig } from "./config/graphql.config";
       inject: [ConfigService],
       useFactory: getGraphQLConfig,
     }),
-    PrismaModule
+    PrismaModule,
+    AccountModule,
+    RedisModule
   ],
 })
 
