@@ -22,13 +22,22 @@ services:
     ports:
       - 6379:6379
     command: redis-server --requirepass ${REDIS_PASSWORD}
-    volumes:
-      - redis_data:/data
+    #volumes:
+    #  - redis_data:/data
+    networks:
+      - streamify-backend
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redis-insight
+    ports:
+      - "8001:8001"
     networks:
       - streamify-backend
 
+
 volumes:
   postgres_data:
+
 
 networks:
   streamify-backend:
