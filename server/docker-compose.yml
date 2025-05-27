@@ -27,7 +27,7 @@ services:
     networks:
       - streamify-backend
   redisinsight:
-    image: redis/redisinsight:latest
+    image: redislabs/redisinsight:1.14.0
     container_name: redis-insight
     ports:
       - "8001:8001"
