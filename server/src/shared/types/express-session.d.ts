@@ -7,8 +7,8 @@ declare module 'express-session' {
 	}
 }
 
-declare module 'express' {
-  interface Request {
-    session: SessionData
-  }
-}
+// declare module 'express' {
+//   interface Request {
+//     session: SessionData
+//   }
+// }

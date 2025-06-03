@@ -9,6 +9,7 @@ export function saveSession(
 	req: Request,
 	user: User,
 ) {
+	console.log(req, user)
 	return new Promise((resolve, reject) => {
 		req.session.createdAt = new Date()
 		req.session.userId = user.id

@@ -12,7 +12,9 @@ import type { Request } from 'express'
 
 @Injectable()
 export class SessionService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService,
+    private readonly configService: ConfigService
+  ) {}
   // Accept req and LoginInput (use PrismaService from constructor)
   public async login(req: Request, input: LoginInput) {
     const { login, password } = input;
@@ -20,7 +22,10 @@ export class SessionService {
     // Find user by login (username or email)
     const user = await this.prismaService.user.findFirst({
       where: {
-        OR: [{ username: login }, { email: login }],
+        OR: [
+          { username: { equals: login }}, 
+          { email: { equals: login }}
+        ],
       },
     });
 
@@ -38,11 +43,13 @@ export class SessionService {
     }
 
     // If valid → call saveSession(req, user)
+    console.log(req, user);
     saveSession(req, user);
+    console.log('saved');
     return user;
   }
 
-  public async logout(req: Request, configService: ConfigService) {
-    destroySession(req, configService);
+  public async logout(req: Request) {
+    return destroySession(req, this.configService);
   }
 }

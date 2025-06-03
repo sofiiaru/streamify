@@ -4,6 +4,7 @@ import { UserModel } from 'src/modules/auth/account/models/user.model';
 import { LoginInput } from 'src/modules/auth/session/inputs/login.input';
 import { ConfigService } from '@nestjs/config';
 import type { Request } from 'express'
+import { GqlContext } from 'src/shared/types/gql-context.types';
 
 @Resolver('Session')
 export class SessionResolver {
@@ -11,15 +12,15 @@ export class SessionResolver {
 
   // Add Mutation for loginUser
    @Mutation(() => UserModel, { name: 'loginUser' })
-    public async loginUser(@Context('req') req: Request, @Args('data') input: LoginInput) {
+    public async loginUser(@Context() { req }: GqlContext, @Args('data') input: LoginInput) {
       return this.sessionService.login(req, input);
     }
 
 
   // Add Mutation for logoutUser
-  @Mutation(() => UserModel, { name: 'logoutUser' })
-    public async logoutUser(@Context('req') req: Request, configService: ConfigService) {
-      return this.sessionService.logout(req, configService);
+  @Mutation(() => Boolean, { name: 'logoutUser' })
+    public async logoutUser(@Context() { req }: GqlContext) {
+      return this.sessionService.logout(req);
     }
 
   }
